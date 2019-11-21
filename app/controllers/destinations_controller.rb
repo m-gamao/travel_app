@@ -10,22 +10,22 @@ class DestinationsController < ApplicationController
 
   get '/destinations/new' do
     if logged_in?
-      erb :'destinations/create_tweet'
+      erb :'destinations/create_destination'
     else
       redirect to '/login'
     end
   end
 
-  post '/tweets' do
+  post '/destinations' do
     if logged_in?
       if params[:content] == ""
-        redirect to "/tweets/new"
+        redirect to "/destinations/new"
       else
-        @tweet = current_user.tweets.build(content: params[:content])
-        if @tweet.save
-          redirect to "/tweets/#{@tweet.id}"
+        @destination = current_user.destinations.build(content: params[:content])
+        if @destination.save
+          redirect to "/destinations/#{@destination.id}"
         else
-          redirect to "/tweets/new"
+          redirect to "/destinations/new"
         end
       end
     else
@@ -33,22 +33,22 @@ class DestinationsController < ApplicationController
     end
   end
 
-  get '/tweets/:id' do
+  get '/destinations/:id' do
     if logged_in?
-      @tweet = Tweet.find_by_id(params[:id])
-      erb :'tweets/show_tweet'
+      @destination = destination.find_by_id(params[:id])
+      erb :'destinations/show_destination'
     else
       redirect to '/login'
     end
   end
 
-  get '/tweets/:id/edit' do
+  get '/destinations/:id/edit' do
     if logged_in?
-      @tweet = Tweet.find_by_id(params[:id])
-      if @tweet && @tweet.user == current_user
-        erb :'tweets/edit_tweet'
+      @destination = destination.find_by_id(params[:id])
+      if @destination && @destination.user == current_user
+        erb :'destinations/edit_destination'
       else
-        redirect to '/tweets'
+        redirect to '/destinations'
       end
     else
       redirect to '/login'
