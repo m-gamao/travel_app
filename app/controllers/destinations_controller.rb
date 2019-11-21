@@ -55,20 +55,20 @@ class DestinationsController < ApplicationController
     end
   end
 
-  patch '/tweets/:id' do
+  patch '/destinations/:id' do
     if logged_in?
       if params[:content] == ""
-        redirect to "/tweets/#{params[:id]}/edit"
+        redirect to "/destinations/#{params[:id]}/edit"
       else
-        @tweet = Tweet.find_by_id(params[:id])
-        if @tweet && @tweet.user == current_user
-          if @tweet.update(content: params[:content])
-            redirect to "/tweets/#{@tweet.id}"
+        @destination = destination.find_by_id(params[:id])
+        if @destination && @destination.user == current_user
+          if @destination.update(content: params[:content])
+            redirect to "/destinations/#{@destination.id}"
           else
-            redirect to "/tweets/#{@tweet.id}/edit"
+            redirect to "/destinations/#{@destination.id}/edit"
           end
         else
-          redirect to '/tweets'
+          redirect to '/destinations'
         end
       end
     else
@@ -76,13 +76,13 @@ class DestinationsController < ApplicationController
     end
   end
 
-  delete '/tweets/:id/delete' do
+  delete '/destinations/:id/delete' do
     if logged_in?
-      @tweet = Tweet.find_by_id(params[:id])
-      if @tweet && @tweet.user == current_user
-        @tweet.delete
+      @destination = destination.find_by_id(params[:id])
+      if @destination && @destination.user == current_user
+        @destination.delete
       end
-      redirect to '/tweets'
+      redirect to '/destinations'
     else
       redirect to '/login'
     end
