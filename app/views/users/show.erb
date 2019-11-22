@@ -1,0 +1,6 @@
+<p> Here are your destinations, <%= @user.username %> </p>
+<% @user.destinations.each do |destination| %>
+  <div>
+    <%= destination.content %>
+  </div>
+<% end %>
