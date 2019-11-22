@@ -1,0 +1,8 @@
+<p><%= @destination.content %>
+
+<form method="post" action="/destinations/<%=@destination.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Destination">
+</form>
+
+<a href="/destinations/<%=@destination.id%>/edit">Edit Destination </a>

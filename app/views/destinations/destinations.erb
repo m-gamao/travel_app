@@ -1,0 +1,8 @@
+<p> Welcome, <%= current_user.username %> </p>
+<h2> Destinations </h2>
+
+<% @destinations.each do |destination| %>
+  <div>
+    <%= destination.content %>
+  </div>
+<% end %>
