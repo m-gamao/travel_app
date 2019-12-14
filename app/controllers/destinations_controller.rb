@@ -1,38 +1,47 @@
 class DestinationsController < ApplicationController
-  get '/destinations' do
-    if logged_in?
-      @user = current_user
-      @destinations = Destination.all
-      erb :'destinations/destinations'
-    else
-      redirect to '/login'
-    end 
-  end
 
-  get '/destinations/new' do
-    if logged_in?
-      erb :'destinations/create_destination'
-    else
-      redirect to '/login'
-    end
-  end
-
-  post '/destinations' do
-    if logged_in?
-      if params[:content] == ""
-        redirect to "/destinations/new"
-      else
-        @destination = current_user.destinations.build(name: params[:name])
-        if @destination.save
-          redirect to "/destinations/#{@destination.id}"
+    get '/destinations' do 
+        if logged_in?
+            destinations = destination.all
+            @user = User.find(session[:user_id])
+            @user_destinations = destinations.select do |destination|
+                destination.user_id == @user.id 
+            end
+            erb :'destinations/index'
         else
-          redirect to "/destinations/new"
-        end
-      end
-    else
-      redirect to '/login'
+            redirect to '/login'
+        end 
     end
-  end
+    #checks if user is logged in. gets user's destination index if it's the same user as current session. 
+
+    get '/destinations/new' do 
+        if logged_in?
+            erb :'destinations/new'
+        else 
+            redirect to '/login'
+        end 
+    end 
+    #checks if logged in. if logged in it gets the page new page/form. 
+
+    post '/destinations' do
+        if logged_in?
+            if params[:name == "" || params[:location] == "" || params[:description] == "" 
+                redirect to 'destinations/new'
+            else
+                @destination = current_user.destinations.build(name: params[:name], location: params[:location], description: params[:description]
+                if @destination.save
+                    redirect to "destinations/#{@destination.id}"
+                else 
+                    redirect to 'destinations/new'
+                end 
+            end 
+        else 
+            redirect to '/login'
+        end 
+    end 
+    #if user is logged in and leaves fields empty redirects them to new page again. if user fills out the form correctly, it will save and redirect the show page. 
+
+
 
   get '/destinations/:id' do
     if logged_in?
