@@ -1,7 +1,24 @@
-<h2> Edit Destination </h2>
 
-<form method="post" action="/destinations/<%=@destination.id%>">
-  <input id="hidden" type="hidden" name="_method" value="PATCH">
-  <input type="text" name="content" value="<%= @destination.content %>">
-  <input type="submit" value="submit">
+<h2> Edit your destination </h2>
+
+<form action='/destinations/<%=@destination.id%>' method="POST">
+    <input type='hidden' type='hidden' name='_method' value='PATCH'>
+    <label for='name'>Name of Destination:</label>
+    <input type='text' id='name' name='name' value="<%=@destination.name%>" required>
+    <br>
+    <label for='location'>Location:</label>
+    <input type='text' id='location' name='location' value="<%=@destination.location%>" required>
+    <br>
+    <label for='description'>Description:</label>
+    <input type='text' id='description' name='description' value="<%=@destination.description%>" required><br>
+    <br>
+    <input id='hidden' type='hidden' name='_method' value='DELETE'>
+
+    <input type='submit' id='submit' value='Submit changes'>
+    <br>
+<input type='hidden' name='_method' value='DELETE'/>
+<button type='submit' class='super-sport'>Delete Destination</button>
 </form>
+<br>
+<br>
+<a href='/logout'> Log out </a>

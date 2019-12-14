@@ -1,6 +1,7 @@
 <p> Here are your destinations, <%= @user.username %> </p>
 <% @user.destinations.each do |destination| %>
   <div>
-    <%= destination.content %>
+    <%= destination.name %>
+    <%= destination.city %>
   </div>
 <% end %>

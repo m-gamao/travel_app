@@ -13,12 +13,14 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
+    #check user's input is not blank
     if params[:username] == "" || params[:email] == "" || params[:password] == ""
       redirect to '/signup'
     else
+      #create new user object
       @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
-      @user.save
-      session[:user_id] = @user.id
+      @user.save     #saves the new user to the database
+      session[:user_id] = @user.id     #saves the user id in the session variable (hash)
       redirect to '/destinations'
     end
   end

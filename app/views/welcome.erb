@@ -1,17 +1,32 @@
 
-<h2>Welcome to Travel App!</h2>
-<p>Please sign in or signup below:</p>
+
 
 <nav>
   <% if logged_in? %>
 
-    <a href="/destinations/new"> Create Destination </a>
-    <a href="/logout"> Log Out </a>
-    <p>Welcome, <%=current_user.username %></p>
+  <p>Welcome to Travel App, <%=current_user.username%>!</p>
+
+    <a href="/destinations/new"> Create Destination </a><br>
+<br>
+    <a href="/destinations"> Explore </a><br>
+
+    <br>
+    <a href="/logout"> Log Out </a><br>
+
+
 
   <% else %>
-    <a href="/signup">Sign Up</a>
-    <a href="/login"> Sign In </a>
+  <h2>Welcome to Travel App!</h2>
+  <br>
+  <br>
+  <p>Please sign in or signup below:</p>
+  <br>
+  <br>
+    <a href="/signup"> Sign Up </a><br>
+    <br>
+    <a href="/login"> Sign In </a><br>
   <%end %>
+
+
 
 </nav>

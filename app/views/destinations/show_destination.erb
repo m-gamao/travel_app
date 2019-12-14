@@ -1,4 +1,4 @@
-<p><%= @destination.content %></p>
+<p><%= @destination.name %></p>
 
 <form method="post" action="/destinations/<%=@destination.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">

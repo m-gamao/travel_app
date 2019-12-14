@@ -1,6 +1,21 @@
 
 <h2>Add a destination</h2>
 <form action="/destinations" method="POST">
-  <p>Status: <input type="text" name="content"></p>
-  <input class="btn btn-primary" type="submit" value="submit">
+
+<br>
+  <label for='name'><strong>Enter Name of Destination:</strong></label>
+  <input type='text' id='name' name='name' required><br>
+  <br>
+<br>
+  <label for='location'>Enter Location:</label>
+  <input type='text' id='location' name='location' required><br>
+  <br>
+
+  <label for='description'>Enter Description:</label>
+  <input type='text' id='description' name='description' required><br>
+<br>
+  <input type='submit' id='submit' value='Create Entry'>
+
+
 </form>
+
