@@ -1,6 +1,6 @@
-class CreateDestinationsTable < ActiveRecord::Migration[6.0]
+class CreateDestinationsTable < ActiveRecord::Migration
   def change
-    create_table :destinations do |d|
+    create_table :destinations do |t|
       t.string :restaurants
       t.string :nightlife
       t.string :nature_and_parks
@@ -9,6 +9,8 @@ class CreateDestinationsTable < ActiveRecord::Migration[6.0]
       t.string :city 
       t.string :country
       t.string :year_visited
+
+      t.integer :user_id  
     end
   end
 end
