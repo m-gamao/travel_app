@@ -2,8 +2,8 @@ class DestinationsController < ApplicationController
 
     get '/destinations' do 
         if logged_in?
-            @destinations = Destination.all
             @user = User.find(session[:user_id])
+            @destinations = @user.destinations 
             erb :'destinations/index'
         else
             redirect to '/login'
@@ -55,9 +55,9 @@ class DestinationsController < ApplicationController
   #Edit
   #gets the edit page for the selected destination
   get '/destinations/:id/edit' do 
+    @destination = Destination.find_by(id: params[:id])
     if logged_in?
-        @destination = Destination.find(params[:id])
-        if @destination && @destination.user == current_user
+        if @destination && @destination.user_id == current_user.id
             erb :'destinations/edit'
         else
             redirect to '/destinations'
@@ -67,28 +67,33 @@ class DestinationsController < ApplicationController
     end 
 end 
 
-
-#updates and saves the edit page if filled out correctly 
 patch '/destinations/:id' do 
-  if logged_in?
-      if params[:name] == "" || params[:location] == "" || params[:description] == ""
-          redirect to "/destinations/#{params[:id]}/edit"
-      else
-        @destination = Destination.find(params[:id])
-          if @destination && @destination.user == current_user
-              if @destination.update(name: params[:name], location: params[:location], description: params[:description])
-                  redirect to "/destinations/#{@destination.id}"
-              else 
-                  redirect to "/destinations/#{@destination.id}/edit"
-              end 
-          else 
-              redirect to '/destinations'
-          end 
-      end
-  else 
-      redirect to '/login'
-  end 
-end  
+    @destination = Destination.find_by(id: params[:id])
+    @destination.update(name: params[:name], location: params[:location], description: params[:description])
+    redirect to '/destinations'
+end 
+
+# #updates and saves the edit page if filled out correctly 
+# patch '/destinations/:id' do 
+#   if logged_in?
+#       if params[:name] == "" || params[:location] == "" || params[:description] == ""
+#           redirect to "/destinations/#{params[:id]}/edit"
+#       else
+#         @destination = Destination.find(params[:id])
+#           if @destination && @destination.user_id == current_user.id
+#               if @destination.update(name: params[:name], location: params[:location], description: params[:description])
+#                   redirect to "/destinations/#{@destination.id}"
+#               else 
+#                   redirect to "/destinations/#{@destination.id}/edit"
+#               end 
+#           else 
+#               redirect to '/destinations'
+#           end 
+#       end
+#   else 
+#       redirect to '/login'
+#   end 
+# end  
 
 #Delete
 #deletes the destination  if it belongs to the current user. 
