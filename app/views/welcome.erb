@@ -1,15 +1,34 @@
 
+  <!DOCTYPE html>
+<br>
+<br>
+  <html>
+<style>
+body {
+  font-size: 16px;
+}
+</style>
+<body>
 
+<span style='font-size:100px;'>&#127753;</span>
 
+</body>
+</html>
+<br>
+<br>
+<br>
 <nav>
   <% if logged_in? %>
 
-  <p>Welcome to Travel App, <%=current_user.username%>!</p>
-
-    <a href="/destinations/new"> Create Destination </a><br>
+  <font face="Arial"><h1>Welcome to Travel App, <%=current_user.username%>!</h1></font>
+   <h3><i> All the places you'll go </i></h3>
+    <br>
+    <br>
+    <a href="/destinations/new"> Create a Destination </a>
 <br>
-    <a href="/destinations"> Explore </a><br>
-
+<br>
+    <a href="/destinations"> See your list </a>
+    <br>
     <br>
     <a href="/logout"> Log Out </a><br>
 

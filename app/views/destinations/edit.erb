@@ -12,13 +12,14 @@
     <label for='description'>Description:</label>
     <input type='text' id='description' name='description' value="<%=@destination.description%>" required><br>
     <br>
+    <input type='submit' id='submit' value='Save'>
+</form>
+<form action="/destinations/<%=@destination.id%>/delete" method="POST">
     <input id='hidden' type='hidden' name='_method' value='DELETE'>
-
-    <input type='submit' id='submit' value='Submit changes'>
-    <br>
-<input type='hidden' name='_method' value='DELETE'/>
-<button type='submit' class='super-sport'>Delete Destination</button>
+    <input type='submit' value='Delete Destination'>
 </form>
 <br>
+<br>
+<a href='/'> Home </a>
 <br>
 <a href='/logout'> Log out </a>

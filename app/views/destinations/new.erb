@@ -1,16 +1,21 @@
-<% if Helpers.is_logged_in?(session) %>
-<%= @error %>
-  <form action='/destinations' method="post">
-    Content:
-    <input type="text" name="content"><br>
-    Create Your Destination:
 
-    <input type="submit" name="submit" id="submit">
+<h2>Add a destination</h2>
+<form action="/destinations" method="POST">
 
-    <input type="submit" name="submit">
+<br>
+  <label for='name'><strong>Enter Name of Destination:</strong></label>
+  <input type='text' id='name' name='name' required><br>
+  <br>
+<br>
+  <label for='location'>Enter Location:</label>
+  <input type='text' id='location' name='location' required><br>
+  <br>
 
-  </form>
+  <label for='description'>Enter Description:</label>
+  <input type='text' id='description' name='description' required><br>
+<br>
+  <input type='submit' id='submit' value='Create Entry'>
 
-  <% else %>
-      <h1> You Must Be Logged in to Make Destinations </h1>
-  <% end %>
+
+</form>
+

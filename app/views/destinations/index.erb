@@ -1,0 +1,22 @@
+
+<h2> Your List of Destinations </h2>
+
+<h4> <a href="/destinations/new"> Create New Entry </a> </h4>
+
+<br>
+<br>
+<% @destinations.each do |destination| %>
+  <div>
+    <%= destination.name %>
+    <br>
+    <%= destination.location%>
+    <br>
+    <a href='/destinations/<%=destination.id%>/edit'>Edit Destination</a>
+    <br>
+    <br>
+    <br>
+  </div>
+<% end %>
+<br>
+<a href='/logout'><i> Log out</i></a>
+

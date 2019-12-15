@@ -1,0 +1,19 @@
+<p><%=@destination.name %>
+<br>
+<%=@destination.location %>
+<br>
+<%=@destination.description %>
+</p>
+
+<form method="post" action="/destinations/<%=@destination.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete">
+</form>
+<br>
+<a href="/destinations/<%=@destination.id%>/edit">Edit Destination </a>
+<br>
+<br>
+<a href="/destinations"> See all your places </a>
+<br>
+<br>
+<a href="/destinations/new"> Create new </a>
