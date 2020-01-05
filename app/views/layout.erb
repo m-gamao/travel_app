@@ -15,8 +15,13 @@
   </head>
   <body>
     <div class="wrapper">
-
+ 
         <%= yield %>
+        
+      <% if logged_in? %>  
+      <br>  
+      <a href='/logout'><p> Log out</p></a>
+        <% end %>
 
       <footer class="branding">
         <small>&copy; 2019 <strong>TravelApp</strong></small>

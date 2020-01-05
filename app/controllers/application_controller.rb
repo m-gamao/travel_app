@@ -20,6 +20,9 @@ class ApplicationController < Sinatra::Base
       !!current_user
     end
 
+
+#If you can find a user with an id equal to the session[:user_id], then the user is logged in.
+#If there is no session[:id], then the user is not logged in.
     def current_user
       @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
     end

@@ -6,24 +6,31 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if !logged_in?
-      erb :'users/create_user', locals: {message: "Please sign up before you sign in"}
+      erb :'users/create_user' #, locals: {message: "Please sign up before you sign in"}
     else
       redirect to '/destinations'
     end
   end
 
   post '/signup' do
-    #check user's input is not blank
+    # check user's input is not blank
     if params[:username] == "" || params[:email] == "" || params[:password] == ""
-      redirect to '/signup'
+    redirect to '/signup'
+  
+    # create new user object
+  	elsif !user_exists?(params[:email])
+    @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
+    @user.save #saves the new user to the database
+    session[:user_id] = @user.id #saves the user id in the session variable (hash)
+    redirect to '/destinations'
+
+    # email already in use
     else
-      #create new user object
-      @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
-      @user.save     #saves the new user to the database
-      session[:user_id] = @user.id     #saves the user id in the session variable (hash)
-      redirect to '/destinations'
+    redirect to '/signup'
     end
+
   end
+  
 
   get '/login' do
     if !logged_in?
@@ -42,6 +49,16 @@ class UsersController < ApplicationController
       redirect to '/signup'
     end
   end
+
+  def user_exists?(email)
+    @user = User.find_by(email: email)
+    if @user.present?
+      true
+    else
+      false
+    end
+  end
+  
 
   get '/logout' do
     if logged_in?

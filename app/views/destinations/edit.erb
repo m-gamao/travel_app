@@ -14,12 +14,15 @@
     <br>
     <input type='submit' id='submit' value='Save'>
 </form>
+
 <form action="/destinations/<%=@destination.id%>/delete" method="POST">
     <input id='hidden' type='hidden' name='_method' value='DELETE'>
     <input type='submit' value='Delete Destination'>
 </form>
+
 <br>
 <br>
+
 <a href='/'> Home </a>
+
 <br>
-<a href='/logout'> Log out </a>

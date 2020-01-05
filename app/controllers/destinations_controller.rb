@@ -45,13 +45,17 @@ class DestinationsController < ApplicationController
 #Show
   get '/destinations/:id' do
     if logged_in?
-      @destination = Destination.find(params[:id])
-      erb :'destinations/show'
-    else
-      redirect to '/login'
-    end
-  end
-
+        @destination = Destination.find_by(id: params[:id], user_id: current_user.id)
+           if @destination
+               erb :'destinations/show'
+           else
+               redirect to '/destinations'
+           end
+        else
+         redirect to '/login'
+       end
+    end    
+    
   #Edit
   #gets the edit page for the selected destination
   get '/destinations/:id/edit' do 
@@ -72,28 +76,7 @@ patch '/destinations/:id' do
     @destination.update(name: params[:name], location: params[:location], description: params[:description])
     redirect to '/destinations'
 end 
-
-# #updates and saves the edit page if filled out correctly 
-# patch '/destinations/:id' do 
-#   if logged_in?
-#       if params[:name] == "" || params[:location] == "" || params[:description] == ""
-#           redirect to "/destinations/#{params[:id]}/edit"
-#       else
-#         @destination = Destination.find(params[:id])
-#           if @destination && @destination.user_id == current_user.id
-#               if @destination.update(name: params[:name], location: params[:location], description: params[:description])
-#                   redirect to "/destinations/#{@destination.id}"
-#               else 
-#                   redirect to "/destinations/#{@destination.id}/edit"
-#               end 
-#           else 
-#               redirect to '/destinations'
-#           end 
-#       end
-#   else 
-#       redirect to '/login'
-#   end 
-# end  
+ 
 
 #Delete
 #deletes the destination  if it belongs to the current user. 
