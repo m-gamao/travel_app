@@ -2,7 +2,8 @@
 <h2> Edit your destination </h2>
 
 <form action='/destinations/<%=@destination.id%>' method="POST">
-    <input type='hidden' type='hidden' name='_method' value='PATCH'>
+    <input type='hidden' name='_method' value='PATCH'>
+    <br>
     <label for='name'>Name of Destination:</label>
     <input type='text' id='name' name='name' value="<%=@destination.name%>" required>
     <br>

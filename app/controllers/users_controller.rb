@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
-  get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'users/show'
-  end
+  #slug allows you to put the user's name without using the user id
+  # get '/users/:slug' do
+  #   @user = User.find_by_slug(params[:slug])
+  #   erb :'users/show'
+  # end
 
   get '/signup' do
     if !logged_in?
-      erb :'users/create_user' #, locals: {message: "Please sign up before you sign in"}
+      erb :'users/create_user', locals: {message: "Please sign up before you sign in"}
     else
       redirect to '/destinations'
     end
@@ -15,23 +16,23 @@ class UsersController < ApplicationController
   post '/signup' do
     # check user's input is not blank
     if params[:username] == "" || params[:email] == "" || params[:password] == ""
-    redirect to '/signup'
-  
+    #redirect to '/signup'
+      erb :'users/create_user', locals: {message: "Fields cannot be blank"}
+
     # create new user object
   	elsif !user_exists?(params[:email])
-    @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
-    @user.save #saves the new user to the database
-    session[:user_id] = @user.id #saves the user id in the session variable (hash)
-    redirect to '/destinations'
+      @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
+      @user.save #saves the new user to the database
+      session[:user_id] = @user.id #saves the user id in the session variable (hash)
+      redirect to '/destinations'
 
     # email already in use
     else
-    redirect to '/signup'
+    #redirect to '/signup'
+      erb :'users/create_user', locals: {message: "Email already in use. Please enter a different email."}
     end
-
   end
   
-
   get '/login' do
     if !logged_in?
       erb :'users/login'
