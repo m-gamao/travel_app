@@ -18,7 +18,7 @@ post '/signup' do
   if params[:username] == "" || params[:email] == "" || params[:password] == ""
     erb :'users/create_user', locals: {message: "Fields cannot be blank"}
     # create new user object
-  elsif !username_exist?(params[:username]) && !email_exists?(params[:email])
+  elsif !username_exists?(params[:username]) && !email_exists?(params[:email])
     @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
     @user.save #saves the new user to the database
     session[:user_id] = @user.id #saves the user id in the session variable (hash)

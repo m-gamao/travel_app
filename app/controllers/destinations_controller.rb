@@ -44,8 +44,12 @@ class DestinationsController < ApplicationController
     #Show  
     get '/destinations/:id' do
         if logged_in?
-            @destination = Destination.find_by(id: params[:id]) #user_id: current_user.id)
-            erb :'destinations/show'
+            @destination = Destination.find_by(id: params[:id])
+            if @destination.present? && @destination.user_id == current_user.id
+                erb :'destinations/show'
+            else
+                redirect to '/destinations'
+            end        
         else
             redirect to '/login'
         end
