@@ -13,23 +13,22 @@ class UsersController < ApplicationController
     end
   end
 
-  post '/signup' do
-  # check user's input is not blank
-    if params[:username] == "" || params[:email] == "" || params[:password] == ""
-      erb :'users/create_user', locals: {message: "Fields cannot be blank"}
-
-  # create new user object
-  	elsif !user_exists?(params[:email], params[:username])
-      @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
-      @user.save #saves the new user to the database
-      session[:user_id] = @user.id #saves the user id in the session variable (hash)
-      redirect to '/destinations'
-  # email already in use
-    else
-      erb :'users/create_user', locals: {message: "User already exists.  Please create new user."}
-  
-    end
+post '/signup' do
+    # check user's input is not blank
+  if params[:username] == "" || params[:email] == "" || params[:password] == ""
+    erb :'users/create_user', locals: {message: "Fields cannot be blank"}
+    # create new user object
+  elsif !username_exist?(params[:username]) && !email_exists?(params[:email])
+    @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
+    @user.save #saves the new user to the database
+    session[:user_id] = @user.id #saves the user id in the session variable (hash)
+    redirect to '/destinations'
+    # email already in use
+  else
+    erb :'users/create_user', locals: {message: "User already exists.  Please create new user."}
+    
   end
+end
   
   #validate uniqueness of the Username 
 
@@ -51,8 +50,17 @@ class UsersController < ApplicationController
     end
   end
 
-  def user_exists?(email, username)
-    @user = User.find_by(email: email, username: username)
+  def email_exists?(email)
+    @user = User.find_by(email: email) 
+    if @user.present?
+      true
+    else
+      false
+    end
+  end
+
+  def username_exists?(username)
+    @user = User.find_by(username: username) 
     if @user.present?
       true
     else
