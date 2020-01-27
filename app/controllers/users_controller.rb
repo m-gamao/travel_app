@@ -14,12 +14,13 @@ class UsersController < ApplicationController
   end
 
 post '/signup' do
-    # check user's input is not blank
-  if params[:username] == "" || params[:email] == "" || params[:password] == ""
-    erb :'users/create_user', locals: {message: "Fields cannot be blank"}
-    # create new user object
-  elsif !username_exists?(params[:username]) && !email_exists?(params[:email])
-    @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
+  # check user's input is not blank
+  # if params[:username] == "" || params[:email] == "" || params[:password] == ""
+  #   erb :'users/create_user', locals: {message: "Fields cannot be blank"}
+#create new user object
+  # elsif !username_exists?(params[:username]) && !email_exists?(params[:email])
+
+  if @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
     @user.save #saves the new user to the database
     session[:user_id] = @user.id #saves the user id in the session variable (hash)
     redirect to '/destinations'
@@ -30,7 +31,7 @@ post '/signup' do
   end
 end
   
-  #validate uniqueness of the Username 
+  #validate uniqueness of the Username in the model User.
 
   get '/login' do
     if !logged_in?
@@ -50,23 +51,23 @@ end
     end
   end
 
-  def email_exists?(email)
-    @user = User.find_by(email: email) 
-    if @user.present?
-      true
-    else
-      false
-    end
-  end
+  # def email_exists?(email)
+  #   @user = User.find_by(email: email) 
+  #   if @user.present?
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 
-  def username_exists?(username)
-    @user = User.find_by(username: username) 
-    if @user.present?
-      true
-    else
-      false
-    end
-  end
+  # def username_exists?(username)
+  #   @user = User.find_by(username: username) 
+  #   if @user.present?
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 
 
   get '/logout' do
