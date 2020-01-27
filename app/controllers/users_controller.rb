@@ -14,24 +14,23 @@ class UsersController < ApplicationController
   end
 
 post '/signup' do
-  # check user's input is not blank
-  # if params[:username] == "" || params[:email] == "" || params[:password] == ""
-  #   erb :'users/create_user', locals: {message: "Fields cannot be blank"}
-#create new user object
-  # elsif !username_exists?(params[:username]) && !email_exists?(params[:email])
-
-  if @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
-    @user.save #saves the new user to the database
-    session[:user_id] = @user.id #saves the user id in the session variable (hash)
-    redirect to '/destinations'
-    # email already in use
+    # check user's input is not blank
+  if params[:username] == "" || params[:email] == "" || params[:password] == ""
+    erb :'users/create_user', locals: {message: "Fields cannot be blank"}
+    # create new user object
   else
-    erb :'users/create_user', locals: {message: "User already exists.  Please create new user."}
-    
+    @user = User.new(username: params[:username], email: params[:email], password: params[:password])
+    if @user.save #sends info to the user model and hits validations, and saves the new user to the database
+      session[:user_id] = @user.id #saves the user id in the session variable (hash)
+      redirect to '/destinations'
+    # email already in use
+    else
+      erb :'users/create_user', locals: {message: "User already exists.  Please create new user."}
+    end
   end
 end
   
-  #validate uniqueness of the Username in the model User.
+  #validate uniqueness of the Username 
 
   get '/login' do
     if !logged_in?
