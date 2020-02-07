@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   #slug allows you to put the user's name without using the user id
-  # get '/users/:slug' do
-  #   @user = User.find_by_slug(params[:slug])
-  #   erb :'users/show'
-  # end
+  get '/users/:id' do
+    @user = User.find_by(id: params[:id])
+    erb :'users/show'
+  end
 
   get '/signup' do
     if !logged_in?
