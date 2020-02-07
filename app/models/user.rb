@@ -6,6 +6,5 @@ class User < ActiveRecord::Base
                        uniqueness: true
   validates :email, presence: true,
                     uniqueness: true
-                      #  format: {:with
-  # validates :password, presence: true
+
 end
