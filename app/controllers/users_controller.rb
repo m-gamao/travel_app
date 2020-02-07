@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    # check user's input is not blank
+    # user's input cannot be blank
     if params[:username] == "" || params[:email] == "" || params[:password] == ""
       erb :'users/create_user', locals: {message: "Fields cannot be blank"}
     # create new user object
