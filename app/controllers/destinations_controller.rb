@@ -40,8 +40,6 @@ class DestinationsController < ApplicationController
         end 
     end 
 
-    #NEED TO FIX!!!!  Line 46-48.  For some reason user is not being taken to the show page when user adds /1.
-    #Show  
     get '/destinations/:id' do
         if logged_in?
             @destination = Destination.find_by(id: params[:id])

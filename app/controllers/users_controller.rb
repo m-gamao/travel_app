@@ -50,25 +50,8 @@ end
     end
   end
 
-  # def email_exists?(email)
-  #   @user = User.find_by(email: email) 
-  #   if @user.present?
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
 
-  # def username_exists?(username)
-  #   @user = User.find_by(username: username) 
-  #   if @user.present?
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
-
-
+#added this element to the views/layout.rb under yield.
   get '/logout' do
     if logged_in?
       session.destroy
