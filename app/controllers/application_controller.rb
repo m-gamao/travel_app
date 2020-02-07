@@ -16,15 +16,16 @@ class ApplicationController < Sinatra::Base
 
   helpers do
 
-    def logged_in?
-      !!current_user
-    end
+  def logged_in?
+    !!current_user
+  end
 
 #If you can find a user with an id equal to the session[:user_id], then the user is logged in.
 #If there is no session[:id], then the user is not logged in.
-    def current_user
-      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
-    end
+    
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
 
   end
 end

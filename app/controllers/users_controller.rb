@@ -13,26 +13,25 @@ class UsersController < ApplicationController
     end
   end
 
-post '/signup' do
+  post '/signup' do
     # check user's input is not blank
-  if params[:username] == "" || params[:email] == "" || params[:password] == ""
-    erb :'users/create_user', locals: {message: "Fields cannot be blank"}
+    if params[:username] == "" || params[:email] == "" || params[:password] == ""
+      erb :'users/create_user', locals: {message: "Fields cannot be blank"}
     # create new user object
-  else
-    @user = User.new(username: params[:username], email: params[:email], password: params[:password])
-    if @user.save #sends info to the user model and hits validations, and saves the new user to the database
-      session[:user_id] = @user.id #saves the user id in the session variable (hash)
-      redirect to '/destinations'
-    # email already in use
     else
-      erb :'users/create_user', locals: {message: "User already exists.  Please create new user."}
+      @user = User.new(username: params[:username], email: params[:email], password: params[:password])
+      if @user.save #sends info to the user model and hits validations, and saves the new user to the database
+        session[:user_id] = @user.id #saves the user id in the session variable (hash)
+        redirect to '/destinations'
+      
+      #email already in use
+      else
+        erb :'users/create_user', locals: {message: "User already exists. Please create new user."}
     end
   end
 end
   
-  #validate uniqueness of the Username 
-
-  get '/login' do
+get '/login' do
     if !logged_in?
       erb :'users/login'
     else

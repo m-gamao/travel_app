@@ -72,9 +72,10 @@ class DestinationsController < ApplicationController
         redirect to '/destinations'
     end 
     
-    #Delete
-    #deletes the destination  if it belongs to the current user. 
-    #If it's not current user's destination, then it redirects them to their index page. 
+#Delete
+#deletes the destination if it belongs to the current user. 
+#If it's not current user's destination, then it redirects them to their index page.
+
     delete '/destinations/:id/delete' do 
         if logged_in?
             @destination = Destination.find(params[:id])
